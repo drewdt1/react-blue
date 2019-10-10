@@ -123,3 +123,25 @@ export const deleteChild = (childId) => (dispatch) => {
         }
     })
 }
+
+/*********************** actions for exporting files/project ****************************/
+
+import JSZip from 'jszip'; // for exporting project
+import FileSave from 'file-saver'; // for exporting project
+
+const zip = new JSZip();
+
+export const exportProject = () => (dispatch) => {
+  console.log('in exportProject actions.js');
+  // console.log(state.data)
+  zip.file('hello.txt', 'sup....')
+  console.log(zip.files);
+  zip.generateAsync({type: 'blob'}).then(function(blob) {
+    saveAs(blob, 'drew.zip')
+  })
+  dispatch({
+    type: types.EXPORT_PROJECT,
+    payload: null
+  })
+}
+

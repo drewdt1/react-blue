@@ -1,51 +1,36 @@
 import React, { Component } from 'react';
-import Edit from '../components/navEdit.jsx';
-import Zoom from './../components/navZoom.jsx';
-import Export from '../components/navExport.jsx';
+import { connect } from 'react-redux';
+import { 
+  exportProject,
+} from '../actions/actions';
+import { bindActionCreators } from 'redux';
+// import Edit from '../components/navEdit.jsx';
+// import Zoom from './../components/navZoom.jsx';
+// import Export from '../components/navExport.jsx';
 
-class TopNavbar extends Component {
-  constructor() {
-    super();
+// placeholder while testing
+const mapStateToProps = store => ({
+  state: store.main,
+  projectName: store.main.projectName,
+  currentComponent: store.main.currentComponent,
+  lastId: store.main.lastId
+});
 
-    this.state = {
-      isEditOpen: false,
-      zoomPercent: 75
-    };
+const mapDispatchToProps = dispatch => bindActionCreators(
+  { 
+      exportProject
+  },
+  dispatch
+);
 
-    this.toggleEdit = this.toggleEdit.bind(this);
-    this.updateZoom = this.updateZoom.bind(this);
-    this.handleExportClick = this.handleExportClick.bind(this);
-  }
+const TopNavBarContainer = props => {
+  return(
+  <div>
+    <button onClick={props.exportProject}>Export</button>
+  </div>
+)};
 
-  toggleEdit() {
-    this.setState({
-      isEditOpen: !this.state.isEditOpen
-    });
-  }
-
-  updateZoom(e) {
-    this.setState({
-      zoomPercent: e.target.value
-    });
-  }
-
-  /// PLACEHOLDER UNTIL MERGE
-  handleExportClick() {
-    console.log('export click');
-  }
-
-  render() {
-    return (
-      <div id='top-nav'>
-        <Export handleExportClick={this.handleExportClick} />
-        <Edit toggleEdit={this.toggleEdit} isEditOpen={this.state.isEditOpen} />
-        <Zoom
-          updateZoom={this.updateZoom}
-          zoomPercent={this.state.zoomPercent}
-        />
-      </div>
-    );
-  }
-}
-
-export default TopNavbar;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TopNavBarContainer);

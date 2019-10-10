@@ -15,9 +15,9 @@ import FileSaver from 'file-saver';
 // });
 /////////////////////////////////
 
-function Export({handleExportClick}) {
+function Export({createApplication}) {
   return (
-    <button onClick={() => handleExportClick()} id="export-btn">Export Project</button>
+    <button onClick={createApplication} id="export-btn">Export Project</button>
   )
 }
 

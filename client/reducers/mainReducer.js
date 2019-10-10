@@ -17,6 +17,7 @@ const initialState = {
     id: 0,
     children: []
     },
+  projectName: 'Test',
   translate: {x: null, y: null},
   history: null,
   currentComponent: {
@@ -29,7 +30,7 @@ const initialState = {
 }
 
 const mainReducer = (state=initialState, action) => {
-  let isContainer, currentComponent, childId, children, data, inputName, preHistory, history;
+  let isContainer, currentComponent, childId, children, data, inputName, preHistory, projectName, history;
   switch(action.type) {
 
     /******************************* actions for side bar ************************************/
@@ -237,11 +238,12 @@ const mainReducer = (state=initialState, action) => {
           }
       };
       
-      currentComponent = Object.assign(state.currentComponent, {children});
-      console.log('currentComponent in delete child: ', currentComponent);
+/*********************** actions for exporting project ****************************/
+
+      case types.EXPORT_PROJECT: 
+      console.log('in EXPORT_PROJECT reducer')
       return {
-          ...state,
-          currentComponent
+          ...state
       }
 
     default:
